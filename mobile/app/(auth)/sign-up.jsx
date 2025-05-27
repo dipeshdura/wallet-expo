@@ -18,6 +18,7 @@ export default function SignUpScreen() {
   const [pendingVerification, setPendingVerification] = React.useState(false);
   const [code, setCode] = React.useState("");
   const [error, setError] = React.useState(false);
+  const [passwordVisible, setPasswordVisible] =React.useState(false);
 
   // Handle submission of sign-up form
   const onSignUpPress = async () => {
@@ -132,14 +133,30 @@ export default function SignUpScreen() {
           placeholderTextColor="#9A8478"
           onChangeText={(email) => setEmailAddress(email)}
         />
+        <View style={{
+          position:"relative",
+        }}>
         <TextInput
           style={[styles.input,error && styles.errorInput]}
           value={password}
           placeholder="Enter password"
           placeholderTextColor="#9A8478"
-          secureTextEntry={true}
+          secureTextEntry={!passwordVisible}
           onChangeText={(password) => setPassword(password)}
-        />
+          />
+        <TouchableOpacity onPress={()=>setPasswordVisible(!passwordVisible)} style={{
+          position:"absolute",
+          right:25,
+          top:15
+        }}>
+          <Ionicons 
+          name={passwordVisible ? "eye-outline":"eye-off-outline"}
+          size={24}
+          color="#666"
+          />
+        </TouchableOpacity>
+          </View>
+
         <TouchableOpacity onPress={onSignUpPress} style={styles.button}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>

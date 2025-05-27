@@ -16,6 +16,7 @@ export default function Page() {
   const [emailAddress, setEmailAddress] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [error, setError] =React.useState('');
+  const [passwordVisible, setPasswordVisible] =React.useState('');
 
   // Handle the submission of the sign-in form
   const onSignInPress = async () => {
@@ -77,14 +78,26 @@ export default function Page() {
         placeholderTextColor="#9A8478"
         onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
         />
+        <View style={{
+          position:"relative"
+        }}>
+
       <TextInput
         style={[styles.input,error && styles.errorInput]}
         value={password}
         placeholder="Enter password"
         placeholderTextColor="#9A8478"
-        secureTextEntry={true}
+        secureTextEntry={!passwordVisible}
         onChangeText={(password) => setPassword(password)}
         />
+        <TouchableOpacity onPress={()=>setPasswordVisible(!passwordVisible)} style={{
+          position:"absolute",
+          top:15,
+          right:25
+        }}>
+          <Ionicons name={passwordVisible?"eye-outline":"eye-off-outline"} size={24} color="#666" />
+        </TouchableOpacity>
+        </View>
       <TouchableOpacity onPress={onSignInPress} style={styles.button}>
         <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
