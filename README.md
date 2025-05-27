@@ -36,5 +36,5 @@ npm i @clerk/clerk-expo
 npm i @upstash/redis@1.34.9
 
 # Install frontend dependencies
-cd ../frontend
+cd ../mobile
 npm install
