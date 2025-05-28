@@ -1,0 +1,1 @@
+export const API_URL ="https://wallet-expo.onrender.com/api";

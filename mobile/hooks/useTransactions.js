@@ -1,7 +1,8 @@
+import { API_URL } from "@/constants/api";
 import { useCallback, useState } from "react"
 import { Alert } from "react-native";
 
-const API_URL ="https://wallet-expo.onrender.com/api";
+
 export const useTransactions =(userId)=>{
     const [transactions, setTransactions] =useState([]);
     const [summary, setSummary] =useState({
