@@ -6,6 +6,7 @@ import { API_URL } from "@/constants/api";
 import { styles } from "@/assets/styles/create.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/constants/colors";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CATEGORIES = [
   { id: "food", name: "Food & Drinks", icon: "fast-food" },
@@ -29,17 +30,16 @@ const CreateScreen = () => {
 
   const handleCreate = async () => {
     //validations
-    if (!title.trim())
-      return Alert.alert("Error", "Please enter a transaction title");
+    if (!title?.trim?.()) return Alert.alert("Error", "Please enter a transaction title");
+
     if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
       Alert.alert("Error", "Please enter a valid amount");
       return;
     }
-    if (!selectedCategory)
-      return Alert.alert("Error", "Please select a category");
+    if (!selectedCategory) return Alert.alert("Error", "Please select a category");
 
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       //formatting amount (negative for expenses, positive for income)
       const formattedAmount = isExpense
         ? -Math.abs(parseFloat(amount))
@@ -52,11 +52,12 @@ const CreateScreen = () => {
         },
         body: JSON.stringify({
           user_id: user.id,
-          title,
+          title:title,
           amount: formattedAmount,
           category: selectedCategory,
         }),
       });
+      
       if (!response.ok) {
         const errorData = await response.json();
         console.log(errorData);
@@ -75,9 +76,10 @@ const CreateScreen = () => {
   };
 
   return (
+    <KeyboardAwareScrollView>
     <View style={styles.container}>
       {/* Header  */}
-      <View style={styles.header}>
+      <View style={styles.header}> 
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => router.back()}
@@ -96,9 +98,9 @@ const CreateScreen = () => {
           <Text style={styles.saveButton}>
             {isLoading ? "Saving..." : "Save"}
           </Text>
-          {!isLoading && (
+          {!isLoading && 
             <Ionicons name="checkmark" size={18} color={COLORS.primary} />
-          )}
+          }
         </TouchableOpacity>
       </View>
       {/* body */}
@@ -173,7 +175,7 @@ const CreateScreen = () => {
             placeholder="Transaction Title"
             placeholderTextColor={COLORS.textLight}
             value={title}
-            onChange={setTitle}
+            onChangeText={setTitle}
             />
         </View>
 
@@ -222,6 +224,7 @@ const CreateScreen = () => {
         </View>
     )}
     </View>
+    </KeyboardAwareScrollView>
   );
 };
 

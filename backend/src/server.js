@@ -4,7 +4,7 @@ import transactionsRoutes from "./routes/route.transactions.js";
 import { initDB } from "./config/db.js";
 import ratelimiter from "./middleware/rateLimiter.js";
 import job from "./config/cron.js";
-
+import cors from "cors";
 config();
 
 const PORT = process.env.PORT || 5001;
@@ -16,6 +16,7 @@ if(process.env.NODE_ENV==="production")job.start();
 //middleware
 app.use(ratelimiter);
 app.use(express.json());
+app.use(cors());
 
 //routes
 app.use("/api/transactions",transactionsRoutes);
