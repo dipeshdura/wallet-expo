@@ -3,15 +3,15 @@ import express from "express";
 import transactionsRoutes from "./routes/route.transactions.js";
 import { initDB } from "./config/db.js";
 import ratelimiter from "./middleware/rateLimiter.js";
-
+import job from "./config/cron.js";
 
 config();
 
 const PORT = process.env.PORT || 5001;
 
-
-
 const app = express();
+
+if(process.env.NODE_ENV==="production")job.start();
 
 //middleware
 app.use(ratelimiter);
