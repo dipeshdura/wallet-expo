@@ -26,6 +26,23 @@ cd wallet
 cd backend
 npm install
 
+
 # Install frontend dependencies
 cd ../frontend
 npm install
+
+# Install neondatabase for database
+npm i @neondatabase/serverless@1.0.0
+
+
+# Install upstash for redis
+npm i @upstash/redis@1.34.9
+
+# Install frontend dependencies
+cd ../mobile
+npm install
+
+
+# Install clerk for authentication
+npm i @clerk/clerk-expo
+
