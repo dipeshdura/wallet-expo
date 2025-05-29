@@ -18,6 +18,10 @@ app.use(ratelimiter);
 app.use(express.json());
 app.use(cors());
 
+app.get("/api/health",(req,res)=>{
+  res.status(200).json({status:"ok"})
+})
+
 //routes
 app.use("/api/transactions",transactionsRoutes);
 
