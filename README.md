@@ -46,3 +46,5 @@ npm install
 # Install clerk for authentication
 npm i @clerk/clerk-expo
 
+#render 
+npm i cron 
